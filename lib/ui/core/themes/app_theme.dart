@@ -1,108 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:platzi_api_architecture/ui/core/themes/app_colors.dart';
+import 'package:platzi_api_architecture/ui/core/themes/app_dimensions.dart';
+import 'package:platzi_api_architecture/ui/core/themes/app_text_styles.dart';
 
-import 'app_colors.dart';
-
-class AppTheme {
-  AppTheme._();
-
-  static ThemeData get lightTheme {
-    return ThemeData(
-      useMaterial3: true,
-
-      scaffoldBackgroundColor: AppColors.neutralColor,
-
-      primaryColor: AppColors.primaryColor,
-
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: AppColors.primaryColor,
-        primary: AppColors.primaryColor,
-        secondary: AppColors.secondaryColor,
-        tertiary: AppColors.tertiaryColor,
-        surface: AppColors.neutralColor,
-      ),
-
-      appBarTheme: const AppBarTheme(
+abstract final class AppTheme {
+  static ThemeData get lightTheme => ThemeData(
+    useMaterial3: true,
+    scaffoldBackgroundColor: AppColors.background,
+    colorScheme: const ColorScheme.light(
+      primary: AppColors.primary,
+      onPrimary: AppColors.white,
+      surface: AppColors.surface,
+      onSurface: AppColors.ink,
+      outline: AppColors.outline,
+    ),
+    textTheme: const TextTheme(
+      displaySmall: AppTextStyles.display,
+      titleLarge: AppTextStyles.title,
+      bodyLarge: AppTextStyles.body,
+      bodyMedium: AppTextStyles.body,
+      labelLarge: AppTextStyles.button,
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: AppColors.fieldFill,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+      hintStyle: AppTextStyles.body.copyWith(color: AppColors.muted),
+      border: _border(Colors.transparent),
+      enabledBorder: _border(Colors.transparent),
+      focusedBorder: _border(AppColors.primary, width: 1.5),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.primary,
+        foregroundColor: AppColors.white,
         elevation: 0,
-        backgroundColor: AppColors.backgroundColor,
-        foregroundColor: AppColors.primaryColor,
+        minimumSize: const Size.fromHeight(AppDimensions.buttonHeight),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
+        textStyle: AppTextStyles.button,
       ),
+    ),
+  );
 
-      inputDecorationTheme: InputDecorationTheme(
-        filled: true,
-        fillColor: Colors.white,
-
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 16,
-        ),
-
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.secondaryColor),
-        ),
-
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.primaryColor, width: 2),
-        ),
-      ),
-
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primaryColor,
-          foregroundColor: Colors.white,
-          minimumSize: const Size(double.infinity, 55),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-      ),
-
-      textTheme: const TextTheme(
-        headlineLarge: TextStyle(
-          fontSize: 32,
-          fontWeight: FontWeight.bold,
-          color: AppColors.blackColor,
-        ),
-
-        headlineMedium: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          color: AppColors.blackColor,
-        ),
-
-        titleLarge: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-          color: AppColors.blackColor,
-        ),
-
-        titleMedium: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-          color: AppColors.blackColor,
-        ),
-
-        bodyLarge: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-          color: AppColors.blackColor,
-        ),
-
-        bodyMedium: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-          color: AppColors.subTitleColor,
-        ),
-
-        bodySmall: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-          color: AppColors.subTitleColor,
-        ),
-      ),
-    );
-  }
+  static OutlineInputBorder _border(Color color, {double width = 1}) =>
+      OutlineInputBorder(
+        borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
+        borderSide: BorderSide(color: color, width: width),
+      );
 }
