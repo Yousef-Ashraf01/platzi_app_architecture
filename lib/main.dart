@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:platzi_api_architecture/di/service_locator.dart';
 import 'package:platzi_api_architecture/ui/core/themes/app_colors.dart';
 import 'package:platzi_api_architecture/ui/core/themes/app_theme.dart';
 
 void main() {
+  setupDependencies();
   runApp(const MyApp());
 }
 
@@ -12,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       home: Scaffold(
         backgroundColor: AppColors.backgroundColor,
